@@ -1,10 +1,15 @@
 package com.applexis.climatemonitor.ui.widget;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
+import com.applexis.climatemonitor.InfoUpdateService;
 import com.applexis.climatemonitor.R;
 import com.applexis.climatemonitor.WidgetUpdateManager;
 
@@ -66,12 +71,19 @@ public class SimpleClockWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        WidgetUpdateManager.registerBroacastReceiver(context);
+        WidgetUpdateManager.registerBroadcastReceiver(context);
         WidgetUpdateManager.updateSimpleWidget(context);
     }
 
     @Override
     public void onDisabled(Context context) {
+        WidgetUpdateManager.updateSimpleWidget(context);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        //Toast.makeText(context, intent.getAction(), Toast.LENGTH_SHORT).show();
+        WidgetUpdateManager.registerBroadcastReceiver(context);
         WidgetUpdateManager.updateSimpleWidget(context);
     }
 }

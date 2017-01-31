@@ -9,15 +9,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".ui.widget.SimpleClockWidget">
-            <intent-filter>g
+            <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/simple_clock_widget_info" />
-        </receiver>
 
+            <intent-filter>
+                <action android:name="com.applexis.climatemonitor.ACTION_CLOCK_UPDATE"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+            </intent-filter>
+        </receiver>
         <receiver android:name=".ui.widget.BigWeatherTimeWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -26,6 +31,12 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/big_weather_time_widget_info" />
+
+            <intent-filter>
+                <action android:name="com.applexis.climatemonitor.ACTION_CLOCK_UPDATE"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+            </intent-filter>
         </receiver>
 
         <activity android:name=".ui.activity.WeatherActivity">
@@ -41,10 +52,16 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".InfoUpdateService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>
